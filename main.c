@@ -2,10 +2,22 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "main.h"
 #include "callbacks.h"
+//#include "utils.h"
 
 #include <stdlib.h>
 #include <stdio.h>
+
+/*
+void app_init()
+{
+  //this can be an array of arrays, but keeping things
+  //simple, we'll only use one vertex array object for now
+  //(this vao is already bound)
+  GLuint vao = create_vert_arr();
+}
+*/
 
 void render(GLFWwindow* w)
 {
@@ -27,13 +39,19 @@ int main(int argc, char* argv[])
     exit(EXIT_FAILURE);
   }
 
-  //probably smart to set these
-  //glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-  //glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 4);
-  //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  //See main.h for configuring these properties
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, MY_GL_MAJOR);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, MY_GL_MINOR);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
   GLFWwindow* window;
-  window = glfwCreateWindow(800, 600, "Default", NULL, NULL);
+  window = glfwCreateWindow(
+    MY_SCREEN_WIDTH,
+    MY_SCREEN_HEIGHT,
+    MY_WINDOW_TITLE,
+    FULLSCREEN ? glfwGetPrimaryMonitor() : NULL,
+    NULL
+  );
   if(!window)
   {
     glfwTerminate();
@@ -55,6 +73,8 @@ int main(int argc, char* argv[])
   printf("GLEW Meta (version):\n%s\n", glewGetString(GLEW_VERSION));
 
   /////////////////////////////////
+
+  //app_init();
 
   double time;
   while (!glfwWindowShouldClose(window))

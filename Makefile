@@ -15,7 +15,7 @@ clean:
 main: main.o callbacks.o
 	gcc $(FLAGS) main.o callbacks.o -o main $(LIB) -lglew32s -lglfw3 -lopengl32 -lglu32 -lgdi32 
 
-main.o: main.c
+main.o: main.c main.h
 	gcc $(FLAGS) $(INC) -c -o main.o main.c
 
 callbacks.o: callbacks.c callbacks.h
